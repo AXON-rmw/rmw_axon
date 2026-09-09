@@ -1,0 +1,12 @@
+target/
+*.lock
+!axon_core/Cargo.lock
+build/
+log/
+install/
+*.o
+*.a
+*.so
+*.dylib
+# Local validation reports
+*.csv

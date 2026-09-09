@@ -1,0 +1,10 @@
+.git
+build
+install
+log
+**/target
+**/.cache
+**/__pycache__
+*.pyc
+*.swp
+*.swo

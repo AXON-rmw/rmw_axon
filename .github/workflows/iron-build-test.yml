@@ -1,0 +1,63 @@
+name: Iron Build and Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    name: colcon build + functional test
+    runs-on: ubuntu-latest
+    container:
+      image: ros:iron
+      options: --shm-size=2g
+    timeout-minutes: 45
+    env:
+      ROS_DISTRO: iron
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Install build tools, ROS packages, and Rust
+        shell: bash
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            git curl ca-certificates build-essential cmake pkg-config procps \
+            python3-colcon-common-extensions \
+            ros-${ROS_DISTRO}-ament-cmake-ros \
+            ros-${ROS_DISTRO}-demo-nodes-cpp \
+            ros-${ROS_DISTRO}-example-interfaces \
+            ros-${ROS_DISTRO}-pluginlib \
+            ros-${ROS_DISTRO}-rcutils \
+            ros-${ROS_DISTRO}-rmw \
+            ros-${ROS_DISTRO}-ros2cli \
+            ros-${ROS_DISTRO}-ros2node \
+            ros-${ROS_DISTRO}-ros2service \
+            ros-${ROS_DISTRO}-ros2topic \
+            ros-${ROS_DISTRO}-rosidl-runtime-c \
+            ros-${ROS_DISTRO}-rosidl-typesupport-c \
+            ros-${ROS_DISTRO}-rosidl-typesupport-cpp \
+            ros-${ROS_DISTRO}-rosidl-typesupport-fastrtps-c \
+            ros-${ROS_DISTRO}-rosidl-typesupport-fastrtps-cpp \
+            ros-${ROS_DISTRO}-rosidl-typesupport-introspection-c
+          # FastCDR headers: system package on newer distros, ROS package on older ones.
+          apt-get install -y --no-install-recommends libfastcdr-dev \
+            || apt-get install -y --no-install-recommends ros-${ROS_DISTRO}-fastcdr
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+
+      - uses: actions/checkout@v4
+
+      - name: Build rmw_axon
+        shell: bash
+        run: |
+          source $HOME/.cargo/env
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          colcon build --packages-select rmw_axon
+
+      - name: Functional test (pub/sub, service, graph)
+        shell: bash
+        run: |
+          source /opt/ros/${ROS_DISTRO}/setup.bash
+          source install/setup.bash
+          ./.github/scripts/functional_test.sh

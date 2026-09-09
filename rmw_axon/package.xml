@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>rmw_axon</name>
+  <version>0.1.0</version>
+  <description>Axon RMW — purpose-built ROS 2 middleware</description>
+  <maintainer email="mgons@unileon.es">Miguel Ángel González Santamarta</maintainer>
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake_ros</buildtool_depend>
+  <buildtool_depend>cargo</buildtool_depend>
+
+  <depend>rmw</depend>
+  <depend>rosidl_typesupport_c</depend>
+  <depend>rosidl_typesupport_introspection_c</depend>
+  <depend>rosidl_runtime_c</depend>
+  <depend>rosidl_typesupport_fastrtps_c</depend>
+  <depend>rosidl_typesupport_fastrtps_cpp</depend>
+  <depend>fastcdr</depend>
+  <depend>pluginlib</depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <rmw_implementation>rmw_axon</rmw_implementation>
+  </export>
+</package>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AXON — ROS 2 middleware documentation</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1b1f24;
+    --muted: #5b6875;
+    --line: #d8dee6;
+    --card: #f6f8fa;
+    --accent: #0b4f9c;
+    --accent-soft: #e8f0fa;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1117;
+      --fg: #e6edf3;
+      --muted: #9aa7b4;
+      --line: #262d36;
+      --card: #161b22;
+      --accent: #58a6ff;
+      --accent-soft: #12233b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 3rem 1.25rem 4rem;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  main { max-width: 52rem; margin: 0 auto; }
+  header { border-bottom: 1px solid var(--line); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+  h1 { font-size: 2.1rem; margin: 0 0 .4rem; letter-spacing: -0.02em; }
+  .tag {
+    display: inline-block; font-size: .75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .06em;
+    color: var(--accent); background: var(--accent-soft);
+    padding: .2rem .55rem; border-radius: 4px; margin-bottom: .8rem;
+  }
+  .lede { color: var(--muted); margin: 0; max-width: 42rem; }
+  h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: .06em;
+       color: var(--muted); margin: 2.5rem 0 1rem; font-weight: 600; }
+  .grid { display: grid; gap: .85rem; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); }
+  a.card {
+    display: block; padding: 1.1rem 1.2rem; background: var(--card);
+    border: 1px solid var(--line); border-radius: 8px;
+    text-decoration: none; color: inherit; transition: border-color .15s, transform .15s;
+  }
+  a.card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  a.card strong { display: block; color: var(--accent); font-size: 1rem; margin-bottom: .3rem; }
+  a.card span { color: var(--muted); font-size: .89rem; }
+  footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
+           color: var(--muted); font-size: .85rem; }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="tag">ROS 2 middleware</div>
+    <h1>AXON</h1>
+    <p class="lede">
+      A purpose-built ROS 2 RMW pairing a Rust transport core with a C++ ROS 2 adapter:
+      shared-memory ring buffers on the same host, QUIC between hosts, daemon-based
+      discovery, and selectable classic or post-quantum remote-security profiles.
+    </p>
+  </header>
+
+  <h2>API reference</h2>
+  <div class="grid">
+    <a class="card" href="api/axon_core/index.html">
+      <strong>axon_core (Rust)</strong>
+      <span>Generated rustdoc for the transport core: sessions, shared memory, QUIC, daemon, QoS, and security modules.</span>
+    </a>
+  </div>
+
+  <h2>Guides</h2>
+  <div class="grid">
+    <a class="card" href="https://github.com/AXON-rmw/rmw_axon/blob/main/docs/ARCHITECTURE.md">
+      <strong>Architecture</strong>
+      <span>Two-layer design, a source map for every file, control vs data plane, the publish and discovery paths, and where each test lives.</span>
+    </a>
+    <a class="card" href="https://github.com/AXON-rmw/rmw_axon/blob/main/docs/CRYPTOGRAPHY.md">
+      <strong>Cryptography</strong>
+      <span>Configuration matrix, key derivation, exact wire formats, context binding, replay protection, and fail-closed enforcement.</span>
+    </a>
+    <a class="card" href="https://github.com/AXON-rmw/rmw_axon/blob/main/docs/POST_QUANTUM_SECURITY.md">
+      <strong>Post-quantum security</strong>
+      <span>Security profiles, threat model, the claims that are and are not supported, and the evaluation plan.</span>
+    </a>
+    <a class="card" href="https://github.com/AXON-rmw/rmw_axon/blob/main/docs/QKD.md">
+      <strong>QKD deployment</strong>
+      <span>Credentials, two-host setup, session lifetime, failure behavior, and security boundaries.</span>
+    </a>
+  </div>
+
+  <footer>
+    Built from <code>main</code> by the
+    <a href="https://github.com/AXON-rmw/rmw_axon/actions/workflows/docs.yml">Docs workflow</a>.
+    Source on <a href="https://github.com/AXON-rmw/rmw_axon">GitHub</a>.
+    Distributed under the Apache-2.0 License.
+  </footer>
+</main>
+</body>
+</html>
